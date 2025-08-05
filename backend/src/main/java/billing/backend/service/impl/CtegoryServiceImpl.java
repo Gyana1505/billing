@@ -61,7 +61,10 @@ public class CtegoryServiceImpl implements CategoryService{
     @Override
     public void delete(String categoryId) {
         // TODO Auto-generated method stub
-        categoryrepo.findByCategoryId(categoryId);
+        CategoryEntity existingCategort =categoryrepo.findByCategoryId(categoryId)
+              .orElseThrow(() -> new RuntimeException("Category not fount"));
+
+        categoryrepo.delete(existingCategort);
     }
     
     
