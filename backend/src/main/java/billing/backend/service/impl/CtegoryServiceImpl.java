@@ -1,6 +1,8 @@
 package billing.backend.service.impl;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,21 @@ public class CtegoryServiceImpl implements CategoryService{
             .description(request.getDescription())
             .bgColor(request.getBgColor())
             .build();
+    }
+
+    @Override
+    public List<CategoryResponse> read() {
+        // TODO Auto-generated method stub
+        return categoryrepo.findAll()
+        .stream()
+        .map(categoryEntity -> convertToResponse(categoryEntity))
+        .collect(Collectors.toList());
+    }
+
+    @Override
+    public void delete(String categoryId) {
+        // TODO Auto-generated method stub
+        categoryrepo.findByCategoryId(categoryId);
     }
     
     
