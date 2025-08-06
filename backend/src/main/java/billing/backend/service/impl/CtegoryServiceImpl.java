@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import billing.backend.entity.CategoryEntity;
 import billing.backend.io.CategoryRequest;
@@ -17,10 +18,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CtegoryServiceImpl implements CategoryService{
     private final CategoryReposetory categoryrepo;
+    private final fileUplode fileuplode;
     @Override
-    public CategoryResponse add(CategoryRequest request) {
+    public CategoryResponse add(CategoryRequest request,MultipartFile file) {
         // TODO Auto-generated method stub
+       String imgUrl=fileuplode.UplodeFile(file);
        CategoryEntity newCategory =convertToEntity(request);
+       newCategory.setImgUrl(imgUrl);
        newCategory=categoryrepo.save(newCategory);
        return convertToResponse(newCategory);
     }
@@ -63,7 +67,7 @@ public class CtegoryServiceImpl implements CategoryService{
         // TODO Auto-generated method stub
         CategoryEntity existingCategort =categoryrepo.findByCategoryId(categoryId)
               .orElseThrow(() -> new RuntimeException("Category not fount"));
-
+        fileuplode.delete(existingCategort.getImgUrl());
         categoryrepo.delete(existingCategort);
     }
     
