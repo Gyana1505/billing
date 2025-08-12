@@ -11,11 +11,11 @@ import com.cloudinary.Cloudinary;
 
 @Configuration
 public class cloudinary {
-    @Value("{cloudinary.api_key}")
+    @Value("${cloudinary.api_key}")
     private String ApiKey;
-    @Value("{cloudinary.api_secret}")
+    @Value("${cloudinary.api_secret}")
     private String secret;
-    @Value("{cloudinary.cloud_name}")
+    @Value("${cloudinary.cloud_name}")
     private String cloudinaryName;
     
     @Bean

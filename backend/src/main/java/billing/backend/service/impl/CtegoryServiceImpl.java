@@ -17,7 +17,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CtegoryServiceImpl implements CategoryService{
-    private final CategoryReposetory categoryrepo;
+    public final CategoryReposetory categoryrepo;
+
     private final fileUplode fileuplode;
     @Override
     public CategoryResponse add(CategoryRequest request,MultipartFile file) {
