@@ -16,12 +16,10 @@ import billing.backend.service.impl.CtegoryServiceImpl;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/category")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class CategoryController {
     private final CtegoryServiceImpl categoryservice;
-    @PostMapping
+    @PostMapping("/admin/category")
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryResponse addCategory(@RequestPart("category") String categoryString,
                                    @RequestPart("file") MultipartFile file){
@@ -34,7 +32,6 @@ public class CategoryController {
             // TODO: handle exception
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Exception whele parsing the json");
           }
-          
     }
     
     @GetMapping
@@ -42,7 +39,7 @@ public class CategoryController {
         return categoryservice.read();
     }
     
-    @DeleteMapping("/{categoryId}")
+    @DeleteMapping("/admin/category/{categoryId}")
     public void remove(@PathVariable String categoryId){
         try {
             categoryservice.delete(categoryId);

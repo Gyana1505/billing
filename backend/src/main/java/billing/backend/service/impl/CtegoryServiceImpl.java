@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import billing.backend.repository.ItemRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CtegoryServiceImpl implements CategoryService{
     public final CategoryReposetory categoryrepo;
+    private final ItemRepo itemRepo;
 
     private final fileUplode fileuplode;
     @Override
@@ -32,6 +34,7 @@ public class CtegoryServiceImpl implements CategoryService{
 
     private CategoryResponse convertToResponse(CategoryEntity newCategory) {
         // TODO Auto-generated method stub
+        Integer count=itemRepo.countByCategoryId(newCategory.getId());
        return CategoryResponse.builder()
                  . categoryId(newCategory.getCategoryId())
                  .name(newCategory.getName())
@@ -40,6 +43,7 @@ public class CtegoryServiceImpl implements CategoryService{
                  .imgUrl(newCategory.getImgUrl())
                  .createdAt(newCategory.getCreatedAt())
                  .updatedAt(newCategory.getUpdatedAt())
+                 .items(count)
                  .build();
                  
     }
